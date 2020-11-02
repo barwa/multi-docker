@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
  - docker
@@ -24,3 +25,15 @@ after_success:
  - docker push tomaszbarwicki/multi-nginx
  - docker push tomaszbarwicki/multi-server
  - docker push tomaszbarwicki/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'eu-central-1'
+  app: 'multi-docker'
+  env: 'MultiDocker-env'
+  bucket_name: 'elasticbeanstalk-eu-central-1-821540632943'
+  bucket_path: 'docker-multi'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

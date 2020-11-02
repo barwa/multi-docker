@@ -1,0 +1,33 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [{
+			"name": "client",
+			"image": "tomaszbarwicki/multi-client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "tomaszbarwicki/multi-server",
+			"hostname": "api",
+			"essential": false
+		},
+		{
+			"name": "worker",
+			"image": "tomaszbarwicki/multi-worker",
+			"hostname": "worker",
+			"essential": false
+		},
+		{
+			"name": "ngnix",
+			"image": "tomaszbarwicki/multi-ngnix",
+			"essential": true,
+			"portMappings": [{
+				"hostPort": 80,
+				"containerPort": 80
+			}],
+			"links": ["client", "server"]
+		}
+
+	]
+}
